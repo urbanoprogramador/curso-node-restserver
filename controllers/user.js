@@ -1,15 +1,10 @@
 const { response, request } = require("express");
 const Usuario=require('../models/user');
 
-const userGet = (req = request, res = response) => {
-    console.log(req.get('algo'));
-    const params=req.query;
+const userGet = async(req = request, res = response) => {
 
- 
-    res.json({
-        msj: 'get api | controllador',
-        get:params
-    });
+    const users=await Usuario.find();
+    res.json({users});
 };
 
 const userPut = (req = request, res = response) => {
