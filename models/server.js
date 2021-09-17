@@ -2,6 +2,7 @@
 const express = require('express');
 require('dotenv').config();
 const cors=require('cors');
+const { dbConection } = require('../db/config');
 
 const port = process.env.PORT
 
@@ -10,19 +11,16 @@ class Server {
   constructor(){
     this.app=express();
     this.userPath='/api/users';
-
+    this.conectarbd();
     this.middlewares();
     this.router();
     this.start();
   }
-
+  async conectarbd(){
+    await dbConection();
+  }
   router(){
-    
     this.app.use(this.userPath,require('../routes/user'));
-    
-
-
-
   }
   start(){
     this.app.listen(port,()=>{
