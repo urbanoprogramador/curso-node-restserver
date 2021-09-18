@@ -8,13 +8,17 @@ const { generatepass } = require("../helpers/generate-pass");
 
 
 const IsRolValid = (value, { req }) => {
-    return Rol.findOne({
-        rol: value
-    }).then((rol) => {
-        if (!rol) {
-            return Promise.reject(`el ${value} no esta en nuestra base de datos v`);
-        }
-    });
+    if(value) {
+        return Rol.findOne({
+            rol: value
+        }).then((rol) => {
+            if (!rol) {
+                return Promise.reject(`el ${value} no esta en nuestra base de datos v`);
+            }
+        });
+    }
+    return true;
+
 };
 const ExistEmail = (value, { req }) => {
     return Usuario.findOne({

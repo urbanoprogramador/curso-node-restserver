@@ -1,9 +1,12 @@
 const {Router} = require('express');
-const { check } = require('express-validator');
 const userController = require('../controllers/user');
-const { createUserValidate, putUsuarioValidate, deletUserValidate } = require('../validate/user');
+const { createUserValidate, putUsuarioValidate, deletUserValidate } = require('../middlewares/user');
+const { rolUser } = require('../middlewares/validar-rol');
 
 const router=Router();
+
+router.use(rolUser(['ADMIN_ROLE','USER_ROLE']));
+
 
 router.get('/',userController.userGet);
 router.put('/:id',putUsuarioValidate,userController.userPut);
